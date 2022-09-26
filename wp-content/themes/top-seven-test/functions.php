@@ -257,7 +257,7 @@ function select_slide_img($name, $value = '', $w = 100, $h = 300)
 function slide_text() {
 	?>
 	
-	<textarea name="slide_text" id="slide_text" cols="30" rows="10"></textarea>
+	<textarea name="slide_text" id="slide_text" cols="100" rows="10"></textarea>
 	
 	<?php
 }
@@ -270,6 +270,8 @@ function meta_boxes_slider_img()
 }
 
 add_action('admin_menu', 'meta_boxes_slider_img');
+
+
 function meta_boxes_slider_text()
 {
 	//add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
@@ -292,7 +294,9 @@ function print_meta_boxes_slider_img($post)
 function print_meta_boxes_slider_text($post)
 {
 	if (function_exists('slide_text')) {
-		slide_text('slide_text', get_post_meta($post->ID, 'slide_text', true));
+		//slide_text('slide_text', get_post_meta($post->ID, 'slide_text', true));
+		$content = get_post_meta($post->ID, 'slide_text', true);
+		wp_editor( $content, 'slide_text', array() );
 	}
 }
 
@@ -308,6 +312,10 @@ function save_box_data_slider($post_id)
 		update_post_meta($post_id, 'slide_img', $_POST['slide_img']);
 		return $post_id;
 	}
+
+	if(isset($_POST['slide_text'])){
+        update_post_meta($post_id, 'slide_text', $_POST['slide_text']);
+    }
 }
 
 add_action('save_post', 'save_box_data_slider');
