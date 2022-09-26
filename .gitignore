@@ -24,3 +24,4 @@
 /wp-content
 !/top-seven-test
 /.gitignore
+.DS_Store
