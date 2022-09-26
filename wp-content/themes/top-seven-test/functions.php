@@ -288,3 +288,7 @@ function save_box_data_slider($post_id)
 }
 
 add_action('save_post', 'save_box_data_slider');
+
+function test() {
+	echo 'ura';
+}
