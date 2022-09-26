@@ -190,6 +190,18 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 
+
+/**
+ * slider.
+ */
+require get_template_directory() . '/inc/slider.php';
+
+
+/**
+ * slider.
+ */
+require get_template_directory() . '/inc/tariff-plan.php';
+
 /**
  * Load Jetpack compatibility file.
  */
@@ -197,98 +209,3 @@ if (defined('JETPACK__VERSION')) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-
-
-add_action('init', 'register_post_types');
-
-function register_post_types()
-{
-
-	register_post_type('slider_home', [
-		'label'  => 'Слайды',
-		'labels' => [
-			'name'               => 'Слайды', // основное название для типа записи
-			'singular_name'      => 'Слайд', // название для одной записи этого типа
-			'add_new'            => 'Добавить слайд', // для добавления новой записи
-			'add_new_item'       => 'Добавить слайд', // заголовка у вновь создаваемой записи в админ-панели.
-			'all_items'     => 'Все слайды',
-			'edit_item'          => 'Редактировать слайд', // для редактирования типа записи
-			'new_item'           => 'Новый слайд', // текст новой записи
-			'menu_name'          => 'Слайдер', // название меню
-		],
-		'description'         => '',
-		'public'              => true,
-		'show_in_menu'        => true, // показывать ли в меню адмнки
-		'show_in_rest'        => null, // добавить в REST API. C WP 4.7
-		'rest_base'           => null, // $post_type. C WP 4.7
-		'menu_position'       => 12,
-		'menu_icon'           => 'dashicons-embed-photo',
-		'hierarchical'        => false,
-		'supports'            => ['title'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
-		'taxonomies'          => [],
-		'has_archive'         => false,
-		'rewrite'             => true,
-		'query_var'           => true,
-	]);
-}
-
-function select_slide_img($name, $value = '', $w = 100, $h = 300)
-{
-	$default = get_template_directory_uri() . '/img/noimg.jpeg';
-	if ($value) {
-		$image_attributes = wp_get_attachment_image_src($value, array($w, $h));
-		$src = $image_attributes[0];
-	} else {
-		$src = $default;
-	}
-	echo '
-    <div class="select_image_button">
-        <img data-src="' . $default . '" src="' . $src . '" width="' . $w . '%" height="' . $h . 'px" />
-        <div>
-            <input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
-            <button type="submit" class="select_image_button button">Выбрать</button>
-            <button type="submit" class="remove_image_button button">&times;</button>
-        </div>
-    </div>
-	
-    ';
-}
-
-function meta_boxes_slider()
-{
-	add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
-	//add_meta_box('slide-text', 'Текст слайда', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
-	//add_meta_box('slide-button', 'Текст и ссылка кнопки', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
-}
-
-add_action('admin_menu', 'meta_boxes_slider');
-
-/*
- * Заполняем метабокс
- */
-function print_meta_boxes_slider($post)
-{
-	if (function_exists('select_slide_img')) {
-		select_slide_img('slide_img', get_post_meta($post->ID, 'slide_img', true));
-	}
-}
-
-/*
- * Сохраняем данные произвольного поля
- */
-function save_box_data_slider($post_id)
-{
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-		return $post_id;
-	}
-	if ($_POST) {
-		update_post_meta($post_id, 'slide_img', $_POST['slide_img']);
-		return $post_id;
-	}
-}
-
-add_action('save_post', 'save_box_data_slider');
-
-function test() {
-	echo 'ura11';
-}
