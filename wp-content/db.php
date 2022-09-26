@@ -1,0 +1,1 @@
+/Users/aleksandrzagvozdkin/Desktop/top-seven-test/wp-content/plugins/query-monitor/wp-content/db.php
