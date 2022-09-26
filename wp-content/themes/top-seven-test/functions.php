@@ -254,22 +254,45 @@ function select_slide_img($name, $value = '', $w = 100, $h = 300)
     ';
 }
 
-function meta_boxes_slider()
+function slide_text() {
+	?>
+	
+	<textarea name="slide_text" id="slide_text" cols="30" rows="10"></textarea>
+	
+	<?php
+}
+
+function meta_boxes_slider_img()
 {
-	add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
+	add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider_img', 'slider_home', 'normal', 'high');
 	//add_meta_box('slide-text', 'Текст слайда', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
 	//add_meta_box('slide-button', 'Текст и ссылка кнопки', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
 }
 
-add_action('admin_menu', 'meta_boxes_slider');
+add_action('admin_menu', 'meta_boxes_slider_img');
+function meta_boxes_slider_text()
+{
+	//add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
+	add_meta_box('slide-text', 'Текст слайда', 'print_meta_boxes_slider_text', 'slider_home', 'normal', 'high');
+	//add_meta_box('slide-button', 'Текст и ссылка кнопки', 'print_meta_boxes_slider', 'slider_home', 'normal', 'high');
+}
+
+add_action('admin_menu', 'meta_boxes_slider_text');
 
 /*
  * Заполняем метабокс
  */
-function print_meta_boxes_slider($post)
+function print_meta_boxes_slider_img($post)
 {
 	if (function_exists('select_slide_img')) {
 		select_slide_img('slide_img', get_post_meta($post->ID, 'slide_img', true));
+	}
+}
+
+function print_meta_boxes_slider_text($post)
+{
+	if (function_exists('slide_text')) {
+		select_slide_img('slide_text', get_post_meta($post->ID, 'slide_text', true));
 	}
 }
 
@@ -288,7 +311,3 @@ function save_box_data_slider($post_id)
 }
 
 add_action('save_post', 'save_box_data_slider');
-
-function test() {
-	echo 'ura11';
-}
