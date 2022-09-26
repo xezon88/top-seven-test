@@ -292,7 +292,7 @@ function print_meta_boxes_slider_img($post)
 function print_meta_boxes_slider_text($post)
 {
 	if (function_exists('slide_text')) {
-		select_slide_img('slide_text', get_post_meta($post->ID, 'slide_text', true));
+		slide_text('slide_text', get_post_meta($post->ID, 'slide_text', true));
 	}
 }
 
