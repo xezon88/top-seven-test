@@ -231,3 +231,5 @@ if (defined('JETPACK__VERSION')) {
  */
 require get_template_directory() . '/inc/svg-support.php';
 
+add_filter('wpcf7_form_response_output', '__return_empty_string');
+

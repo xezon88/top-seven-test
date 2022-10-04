@@ -64,7 +64,7 @@ get_header();
 							if ($slide_button_link) { ?>
 								<a href="<?php echo $slide_button_link; ?>"><?php echo $slide_button_text; ?></a>
 							<?php } else { ?>
-								<a href="#modal__form"><?php echo $slide_button_text; ?></a>
+								<a href="#"><?php echo $slide_button_text; ?></a>
 							<?php } ?>
 						</div>
 
@@ -199,19 +199,11 @@ get_header();
 			<p>our agency located in Melbourne, Australia</p>
 		</div>
 		<div class="contact-form__form">
-			<?php //echo do_shortcode('[contact-form-7 id="94" title="Contact form 1"]'); 
-			?>
 
 			<?php echo do_shortcode('[contact-form-7 id="95" title="Untitled"]'); ?>
 
 		</div>
 	</div>
-
-
-
-
-
-
 
 </main><!-- #main -->
 
