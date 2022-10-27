@@ -146,9 +146,19 @@ function top_seven_test_scripts()
 	wp_enqueue_style('top-seven-test-style', get_stylesheet_uri(), array(), _S_VERSION);
 	wp_style_add_data('top-seven-test-style', 'rtl', 'replace');
 
+	wp_enqueue_style('slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), _S_VERSION);
+
+	wp_enqueue_style('slick-style', get_template_directory_uri() . '/css/slick.css', array(), _S_VERSION);
+
+	wp_enqueue_style('front-style', get_template_directory_uri() . '/css/front.css', array(), _S_VERSION);
+
 	wp_enqueue_script('top-seven-test-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), _S_VERSION, true);
+
+	wp_enqueue_script('slick-script', get_template_directory_uri() . '/js/slick.min.js', array(), _S_VERSION, true);
+
+	wp_enqueue_script('front-script', get_template_directory_uri() . '/js/front-scripts.js', array(), _S_VERSION, true);
 
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -160,6 +170,7 @@ add_action('wp_enqueue_scripts', 'top_seven_test_scripts');
 function top_seven_test_scripts_admin()
 {
 
+	wp_enqueue_style('admin-style', get_template_directory_uri() . '/css/admin.css', array(), _S_VERSION);
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), _S_VERSION, true);
 
 
@@ -192,13 +203,19 @@ require get_template_directory() . '/inc/customizer.php';
 
 
 /**
- * slider.
+ * slider
  */
 require get_template_directory() . '/inc/slider.php';
 
 
 /**
- * slider.
+ * home page
+ */
+require get_template_directory() . '/inc/home-page.php';
+
+
+/**
+ * tariff plans
  */
 require get_template_directory() . '/inc/tariff-plan.php';
 
@@ -208,4 +225,11 @@ require get_template_directory() . '/inc/tariff-plan.php';
 if (defined('JETPACK__VERSION')) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+ * svg support
+ */
+require get_template_directory() . '/inc/svg-support.php';
+
+add_filter('wpcf7_form_response_output', '__return_empty_string');
 

@@ -1,7 +1,7 @@
-<?php 
-add_action('init', 'register_post_types');
+<?php
+add_action('init', 'register_slider_posts');
 
-function register_post_types()
+function register_slider_posts()
 {
 
 	register_post_type('slider_home', [
@@ -22,7 +22,7 @@ function register_post_types()
 		'show_in_rest'        => null, // добавить в REST API. C WP 4.7
 		'rest_base'           => null, // $post_type. C WP 4.7
 		'menu_position'       => 12,
-		'menu_icon'           => 'dashicons-embed-photo',
+		'menu_icon'           => 'dashicons-slides',
 		'hierarchical'        => false,
 		'supports'            => ['title'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
@@ -56,37 +56,32 @@ function select_slide_img($name, $value = '', $w = 100, $h = 300)
 
 function slide_text()
 {
-?>
-
-	<textarea name="slide_text" id="slide_text" cols="100" rows="10"></textarea>
-
-<?php
 }
 
 
-function slide_button_text( $post_id, $value = '')
+function slide_button_text($post_id, $value = '')
 {
 	if (get_post_meta($post_id, 'slide_button_link', true)) {
-		$value = get_post_meta($post_id, 'slide_button_link', true);	
+		$value = get_post_meta($post_id, 'slide_button_link', true);
 	}
 ?>
 	<div>
 		<label for="slide_button_text">Текст - Если оставить пустым кнопка исчезнет</label>
-		<input type="text" id="slide_button_text" name="slide_button_text" value="<?php echo $value;?>" />
+		<input type="text" id="slide_button_text" name="slide_button_text" value="<?php echo $value; ?>" />
 	</div>
-	
+
 <?php
 }
 
-function slide_button_link( $post_id, $value = '')
+function slide_button_link($post_id, $value = '')
 {
 	if (get_post_meta($post_id, 'slide_button_link', true)) {
-		$value = get_post_meta($post_id, 'slide_button_link', true);	
+		$value = get_post_meta($post_id, 'slide_button_link', true);
 	}
 ?>
 	<div>
 		<label for="slide_button_link">Ссылка - Если оставить пустым будет открываться форма обратной связи</label>
-		<input type="text" id="slide_button_link" name="slide_button_link" value="<?php echo $value;?>" />
+		<input type="text" id="slide_button_link" name="slide_button_link" value="<?php echo $value; ?>" />
 	</div>
 <?php
 }
@@ -94,7 +89,6 @@ function slide_button_link( $post_id, $value = '')
 function meta_boxes_slider_img()
 {
 	add_meta_box('slide-img', 'Изображение', 'print_meta_boxes_slider_img', 'slider_home', 'normal', 'high');
-	
 }
 
 add_action('admin_menu', 'meta_boxes_slider_img');
@@ -102,9 +96,8 @@ add_action('admin_menu', 'meta_boxes_slider_img');
 
 function meta_boxes_slider_text()
 {
-	
+
 	add_meta_box('slide-text', 'Текст слайда', 'print_meta_boxes_slider_text', 'slider_home', 'normal', 'high');
-	
 }
 
 add_action('admin_menu', 'meta_boxes_slider_text');
